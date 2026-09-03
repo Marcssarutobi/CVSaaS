@@ -1,0 +1,6 @@
+{
+  "name": "Générateur de CV",
+  "description": "Créez un CV professionnel et élégant en quelques minutes sans créer de compte. Choisissez un template, remplissez vos informations, prévisualisez et téléchargez votre CV.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

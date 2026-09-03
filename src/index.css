@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    color: #1A1A1A;
+    background-color: #FDFCFB;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.025em;
+    color: #1A1A1A;
+  }
+
+  ::selection {
+    background-color: #1A1A1A;
+    color: #FDFCFB;
+  }
+}
+
+.font-serif-cv,
+.font-serif-editorial {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-mono-cv {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Editorial hairline rules */
+.editorial-rule {
+  height: 1px;
+  background-color: #1A1A1A;
+}
+
+/* Print & PDF exact styling */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .cv-preview-sheet {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 100% !important;
+  }
+}
+
+/* A4 ratio preview wrapper */
+.a4-container {
+  width: 100%;
+  aspect-ratio: 210 / 297;
+}
+
