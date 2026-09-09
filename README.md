@@ -242,12 +242,20 @@ Vous pouvez déployer le front sur :
 - Cloudflare Pages
 - une VM / Docker / serveur frontal statique
 
-Pour Vercel :
+### Déploiement Vercel
 
-1. Connectez votre dépôt GitHub
-2. Configurez `VITE_SUPABASE_URL` et `VITE_SUPABASE_ANON_KEY`
-3. Configurez les variables d'environnement de production
-4. Déployez
+1. Connectez votre dépôt GitHub à Vercel
+2. Sélectionnez le repo `CVSaaS`
+3. Dans les variables d'environnement, ajoutez :
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+   - `VITE_APP_NAME`
+   - `FEDAPAY_PUBLIC_KEY`
+   - `FEDAPAY_ENVIRONMENT`
+4. Gardez `FEDAPAY_SECRET_KEY` côté serveur uniquement (Supabase Edge Function, backend ou secret Vercel si nécessaire)
+5. Déployez
+
+Le projet contient déjà un fichier `vercel.json` compatible avec Vite et la redirection SPA.
 
 ## 16. Déployer les Edge Functions
 
