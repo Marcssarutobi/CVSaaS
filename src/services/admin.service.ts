@@ -52,7 +52,7 @@ export const adminService = {
             id: "u-admin-1",
             name: "Administrateur",
             email: "admin@saas.com",
-            role: "superadmin",
+            role: "admin",
           },
         };
       }

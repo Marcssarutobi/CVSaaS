@@ -1,36 +1,41 @@
 import React, { useState } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "../../ui/card";
+import { Card, CardContent } from "../../ui/card";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import { Label } from "../../ui/label";
 import { Shield, Lock, AlertCircle, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { authService } from "../../../services/supabase/auth.service";
 
 interface AdminLoginProps {
   onSuccess: () => void;
 }
 
 export const AdminLogin: React.FC<AdminLoginProps> = ({ onSuccess }) => {
-  const [email, setEmail] = useState("admin@saas-cv.fr");
-  const [password, setPassword] = useState("admin123");
+  const [email, setEmail] = useState("admin@example.com");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
 
-    setTimeout(() => {
-      if (email.trim().length > 3 && password.length >= 4) {
-        localStorage.setItem("saas_cv_admin_token", "admin_session_token_" + Date.now());
-        setIsLoading(false);
-        onSuccess();
-      } else {
-        setIsLoading(false);
-        setError("Identifiants incorrects. Veuillez réessayer.");
+    try {
+      await authService.signIn({ email, password });
+      const profile = await authService.getCurrentUser();
+
+      if (!profile || profile.role !== "admin") {
+        throw new Error("Ce compte n'a pas les droits d'administration.");
       }
-    }, 400);
+
+      onSuccess();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Connexion impossible. Vérifiez vos identifiants.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -44,7 +49,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onSuccess }) => {
             Espace d'Administration
           </h1>
           <p className="text-xs text-slate-400">
-            Gestion des templates, prix, SEO et Analytics
+            Gestion des templates, prix, utilisateurs, paiements et statistiques
           </p>
         </div>
 
@@ -93,8 +98,8 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onSuccess }) => {
               </div>
 
               <div className="p-2.5 rounded bg-slate-900 border border-slate-800 text-[11px] text-slate-400">
-                <span>Identifiants démo : </span>
-                <strong className="text-slate-300">admin@saas-cv.fr</strong> / <strong className="text-slate-300">admin123</strong>
+                <span>Créez l'utilisateur admin dans Supabase Auth et donnez-lui le rôle </span>
+                <strong className="text-slate-300">admin</strong>.
               </div>
             </form>
           </CardContent>

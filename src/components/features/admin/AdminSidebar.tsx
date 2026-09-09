@@ -1,8 +1,8 @@
 import React from "react";
-import { Layers, Search, BarChart3, ArrowLeft, Shield, LogOut } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Layers, Search, BarChart3, ArrowLeft, Shield, LogOut, LayoutDashboard } from "lucide-react";
+import { Link } from "react-router-dom";
 
-export type AdminTab = "templates" | "seo" | "analytics";
+export type AdminTab = "dashboard" | "templates" | "seo" | "analytics";
 
 interface AdminSidebarProps {
   activeTab: AdminTab;
@@ -16,6 +16,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
   onLogout,
 }) => {
   const navItems: { id: AdminTab; label: string; icon: any; count?: number }[] = [
+    { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "templates", label: "Modèles de CV", icon: Layers },
     { id: "seo", label: "Référencement SEO", icon: Search },
     { id: "analytics", label: "Google Analytics", icon: BarChart3 },
